@@ -1,0 +1,316 @@
+Subject: [PATCH] Studying about JAVA Enum classes
+---
+Index: ex3/EnumMethodMain.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ex3/EnumMethodMain.java b/ex3/EnumMethodMain.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ex3/EnumMethodMain.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,15 @@
++package enumeration.ex3;
++
++import java.util.Arrays;
++
++public class EnumMethodMain {
++    public static void main(String[] args) {
++
++        // 모든 Enum 반환
++        Grade[] grade = Grade.values();
++        System.out.println("values = " + Arrays.toString(grade));
++        for (Grade grade1 : grade) {
++            System.out.println(grade1);
++        }
++    }
++}
+\ No newline at end of file
+Index: ref1/ClassGrade.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref1/ClassGrade.java b/ref1/ClassGrade.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref1/ClassGrade.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,18 @@
++package enumeration.ref1;
++
++public class ClassGrade {
++    public static final ClassGrade BASIC = new ClassGrade(10);
++    public static final ClassGrade GOLD = new ClassGrade(20);
++    public static final ClassGrade DIAMOND = new ClassGrade(30);
++
++    private final int discountPercent;
++
++    private ClassGrade(int discountPercent) {
++        this.discountPercent = discountPercent;
++    }
++
++    public int getDiscountPercent() {
++        return discountPercent;
++    }
++}
++
+Index: ref1/ClassRefMain.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref1/ClassRefMain.java b/ref1/ClassRefMain.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref1/ClassRefMain.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,21 @@
++package enumeration.ref1;
++
++
++
++public class ClassRefMain {
++    public static void main(String[] args) {
++        int price = 10000;
++        DiscountService discountService = new DiscountService();
++        // getClass() 을 통해 클래스 정보를 얻어오기
++        System.out.println("Total price: " + price + ", BASIC 등급 할인된 가격 = " + discountService.discount(ClassGrade.BASIC, price));
++        System.out.println("class GOLD = " +ClassGrade.GOLD.getClass());
++        System.out.println("class DIAMOND = " + ClassGrade.DIAMOND.getClass());
++
++        // 필드에서 만들어진 객체의 참조값 얻기
++        System.out.println("ref BASIC = " + ClassGrade.BASIC);
++        System.out.println("ref GOLD = " + ClassGrade.GOLD);
++        System.out.println("ref DIAMOND = " + ClassGrade.DIAMOND);
++
++
++    }
++}
+Index: ref1/DiscountService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref1/DiscountService.java b/ref1/DiscountService.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref1/DiscountService.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,11 @@
++package enumeration.ref1;
++
++
++public class DiscountService {
++    public int discount(ClassGrade classGrade, int price){
++        // classGrade contains 회원정보(BASIC...)
++        // getDiscountPercent() 을통해 바로 할인율 갖고 오기
++        return price * classGrade.getDiscountPercent() /100;
++
++    }
++}
+Index: ref2/DiscountService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref2/DiscountService.java b/ref2/DiscountService.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref2/DiscountService.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,8 @@
++package enumeration.ref2;
++
++public class DiscountService {
++
++    public int discount(Grade grade, int price){
++     return price * grade.getDiscountPercent()/100;
++    }
++}
+Index: ref2/EnumRefMain2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref2/EnumRefMain2.java b/ref2/EnumRefMain2.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref2/EnumRefMain2.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,13 @@
++package enumeration.ref2;
++
++
++
++public class EnumRefMain2 {
++    public static void main(String[] args) {
++        int price = 10000;
++        DiscountService discountService = new DiscountService();
++        int result = discountService.discount(Grade.BASIC,price); // Grade.BASIC 이 객체 생성
++        // 생성된 객체가 discount 메서드에 넘어감
++        System.out.println("할인율 : " + result);
++    }
++}
+Index: ref2/Grade.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref2/Grade.java b/ref2/Grade.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref2/Grade.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,18 @@
++package enumeration.ref2;
++
++public enum Grade {
++    // enum class 의 생성자 호출 방감
++    // 상수를 호출할때 바로 생성자도 호출할 수 있게 설정
++    BASIC(10), GOLD(20), DIAMOND(30);
++    private final int discountPercent;
++
++    Grade(int discountPercent) { // 기존 클래스와 달린 public, private 같은 타입선언을 하지 않음
++        this.discountPercent = discountPercent;
++    }
++
++    public int getDiscountPercent() {
++        return discountPercent;
++    }
++
++    }
++
+Index: ref3/DiscountService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref3/DiscountService.java b/ref3/DiscountService.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref3/DiscountService.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,9 @@
++package enumeration.ref3;
++
++
++public class DiscountService {
++
++    public int discount(Grade grade, int price){
++     return grade.discount(price);
++    }
++}
+Index: ref3/EnumRefMain3.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref3/EnumRefMain3.java b/ref3/EnumRefMain3.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref3/EnumRefMain3.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,11 @@
++package enumeration.ref3;
++
++public class EnumRefMain3 {
++    public static void main(String[] args) {
++        int price = 10000;
++        DiscountService discountService = new DiscountService();
++        int result = discountService.discount(Grade.BASIC,price); // Grade.BASIC 이 객체 생성
++        // 생성된 객체가 discount 메서드에 넘어감
++        System.out.println("할인율 : " + result);
++    }
++}
+Index: ref3/EnumRefMain3_1.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref3/EnumRefMain3_1.java b/ref3/EnumRefMain3_1.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref3/EnumRefMain3_1.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,13 @@
++package enumeration.ref3;
++
++public class EnumRefMain3_1 {
++    public static void main(String[] args) {
++        int price = 10000;
++        // Grade 클래스를 통해 바로 할인 로직 수행 후 값 저장
++        System.out.println("BASIC 등급 할인 가격 = " + Grade.BASIC.discount(price));
++        System.out.println("GOLD 등급 할인 가격 = " + Grade.GOLD.discount(price));
++        System.out.println("DIAMOND 등급 할인 가격 = " + Grade.DIAMOND.discount(price));
++    }
++
++}
++
+Index: ref3/EnumRefMain3_2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref3/EnumRefMain3_2.java b/ref3/EnumRefMain3_2.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref3/EnumRefMain3_2.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,14 @@
++package enumeration.ref3;
++
++public class EnumRefMain3_2 { // 객체 지향의 요소 추가
++    public static void main(String[] args) {
++        int price = 10000;
++        printDiscount(Grade.BASIC,price);
++        printDiscount(Grade.GOLD,price);
++        printDiscount(Grade.DIAMOND,price);
++
++    }
++    private static void printDiscount(Grade grade, int price){
++        System.out.println(grade.name() + "등그의 할인 금액: " + grade.discount(price));
++    }
++}
+Index: ref3/EnumRefMain3_3.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref3/EnumRefMain3_3.java b/ref3/EnumRefMain3_3.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref3/EnumRefMain3_3.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,16 @@
++package enumeration.ref3;
++
++public class EnumRefMain3_3 { // 객체 지향의 요소 추가
++    public static void main(String[] args) {
++        int price = 10000;
++        Grade[] grades = Grade.values(); // Enum class 의 모든 상수값을 가져옴
++        //
++        for (Grade grade : grades) {
++            printDiscount(grade,price);
++        }
++
++    }
++    private static void printDiscount(Grade grade, int price){
++        System.out.println(grade.name() + "등급의 할인 금액: " + grade.discount(price));
++    }
++}
+Index: ref3/Grade.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ref3/Grade.java b/ref3/Grade.java
+new file mode 100644
+--- /dev/null	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
++++ b/ref3/Grade.java	(revision 9b6c4aabda28e9d0e60df94c8cf52342a1dbba4d)
+@@ -0,0 +1,16 @@
++package enumeration.ref3;
++
++public enum Grade {
++    // enum class 의 생성자 호출 방감
++    // 상수를 호출할때 바로 생성자도 호출할 수 있게 설정
++    BASIC(10), GOLD(20),PLATINUM(25),  DIAMOND(30);
++    private final int discountPercent;
++
++    Grade(int discountPercent) { // 기존 클래스와 달린 public, private 같은 타입선언을 하지 않음
++        this.discountPercent = discountPercent;
++    }
++    // 추가
++    public int discount(int price){ // discount logic 을 enum 클래스 내부에 생성
++        return price * discountPercent/ 100;
++    }
++}
