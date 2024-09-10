@@ -2,8 +2,10 @@ package nested.nested1;
 
 public class NestedOuter {
     // public 일 경우 다른 패키지 클래스에서도 className.variableName 을 통해 클래스 변수에 접근가능
+    // 외부클래스는 중첩 클래스 멤버에 접근이 불가
     private static int outClassValue = 3;
     private int outInstanceValue = 2;
+
 
 
     static class Nested{
