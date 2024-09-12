@@ -7,6 +7,8 @@ public class LocalOuterV2 {
         int localVal = 1; // 지역변수
 
         class LocalPrinter implements Printer{
+            int value  = 0;
+            // Printer 인터페이스를 상속 받았기 때문에 print() 메서드를 구현해야 한다
             @Override
             public void print() {
                 System.out.println("value = " + value);
@@ -15,10 +17,6 @@ public class LocalOuterV2 {
                 System.out.println("outInstanceVar = " + outInstanceVar);
 
             }
-
-            int value  = 0;
-
-
         }
         LocalPrinter printer = new LocalPrinter(); // 지역 클래스 인스턴스 생성
         printer.print(); // 메서드 사용
