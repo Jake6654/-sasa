@@ -16,7 +16,7 @@ public class Ex1Main3 {
         Process dice = new Process() { // 익명 클래스 생성후 참조 값을 dice 에 전달
             @Override
             public void run() {
-                int random = new Random().nextInt(6) + 1;
+                int random = new Random().nextInt(10);
                 System.out.println("randomValue = " + random);
             }
         }; // 익명 클래스 바디 부분이 끝나면 ; 해주기
