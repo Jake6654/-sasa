@@ -1,12 +1,9 @@
-package exception.ex1;
-
-
-
+package exception.ex2;
 import java.util.Scanner;
 
-public class MainV1 {
-    public static void main(String[] args) {
-        NetworkServiceV1_3 serviceV0 = new NetworkServiceV1_3();
+public class MainV2 {
+    public static void main(String[] args) throws NetworkClientExceptionV2 {
+        NetworkServiceV2_1 serviceV0 = new NetworkServiceV2_1();
 
         Scanner sc = new Scanner(System.in);
         while (true){
